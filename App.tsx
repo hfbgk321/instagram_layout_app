@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, useWindowDimensions, TouchableOpacity, Text, Alert } from 'react-native';
+import { StyleSheet, View, useWindowDimensions, TouchableOpacity, Text, Alert } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useLayoutStore } from './src/store/useLayoutStore';
 import { generateRandomLayout } from './src/engine/layoutGenerator';
 import { GridCanvas } from './src/components/GridCanvas';
 import { exportToImage } from './src/engine/export';
 
-function App() {
+export default function App() {
   const { width, height } = useWindowDimensions();
   const { rootNode, setRootNode } = useLayoutStore();
 
   useEffect(() => {
     if (width > 0 && height > 0 && !rootNode) {
-      const initialLayout = generateRandomLayout(width, height, 6);
+      // Requirement: Basic 2-cell split
+      const initialLayout = generateRandomLayout(width, height, 2);
       setRootNode(initialLayout);
     }
   }, [width, height, rootNode, setRootNode]);
@@ -62,5 +63,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-export default App;
