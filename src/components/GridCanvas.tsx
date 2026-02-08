@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Canvas, Rect, Group, Circle } from '@shopify/react-native-skia';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { useSharedValue, runOnJS, useDerivedValue } from 'react-native-reanimated';
+import { useSharedValue, runOnJS, useDerivedValue, withTiming } from 'react-native-reanimated';
 import { BSPNode } from '../engine/types';
 import { getLeafNodes, getInternalNodes, computeLayout } from '../engine/bsp';
 import { useLayoutStore } from '../store/useLayoutStore';
