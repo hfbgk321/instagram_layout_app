@@ -3,7 +3,7 @@ import { StyleSheet, View, useWindowDimensions, TouchableOpacity, Text, Alert } 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useLayoutStore } from './src/store/useLayoutStore';
 import { generateRandomLayout } from './src/engine/layoutGenerator';
-import { GridCanvas } from './src/components/GridCanvas';
+import { InteractiveGrid } from './src/components/InteractiveGrid';
 import { exportToImage } from './src/engine/export';
 
 export default function App() {
@@ -32,7 +32,7 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      {rootNode && <GridCanvas rootNode={rootNode} />}
+      {rootNode && <InteractiveGrid rootNode={rootNode} />}
       <TouchableOpacity style={styles.exportButton} onPress={handleExport}>
         <Text style={styles.exportText}>Export 4K</Text>
       </TouchableOpacity>

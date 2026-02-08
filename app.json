@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "InstagramLayoutApp",
-    "slug": "instagram-layout-app",
+    "slug": "instagramlayout",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,6 +29,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8ec2936e-9491-4ce3-8f50-1b44c5796343"
+      }
+    },
+    "owner": "jchen2328"
   }
 }
