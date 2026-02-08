@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, useWindowDimensions, TouchableOpacity, Text, Alert } from 'react-native';
+import { StyleSheet, useWindowDimensions, TouchableOpacity, Text, Alert } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useLayoutStore } from './src/store/useLayoutStore';
 import { generateRandomLayout } from './src/engine/layoutGenerator';

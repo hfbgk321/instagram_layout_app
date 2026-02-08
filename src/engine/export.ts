@@ -13,7 +13,7 @@ export function exportToImage(rootNode: BSPNode, width: number, height: number):
   
   const paint = Skia.Paint();
   
-  leaves.forEach((leaf, index) => {
+  leaves.forEach((leaf) => {
     const contentId = leaf.contentId || leaf.id;
     const colorIndex = parseInt(contentId.substring(0, 8), 36);
     
