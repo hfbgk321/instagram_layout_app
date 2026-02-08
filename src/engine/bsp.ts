@@ -1,4 +1,4 @@
-import { BSPNode, SplitType } from './types';
+import { BSPNode } from './types';
 
 export function createRootNode(width: number, height: number): BSPNode {
   return {
@@ -12,7 +12,7 @@ export function createRootNode(width: number, height: number): BSPNode {
 
 export function splitNode(
   node: BSPNode,
-  splitType: SplitType,
+  splitType: 'horizontal' | 'vertical',
   splitRatio: number = 0.5
 ): BSPNode {
   if (node.left || node.right) {
@@ -223,4 +223,80 @@ export function updateSplitRatio(
   }
 
   return updateNodeInTree(root, nodeId, updatedNode);
+}
+
+// Worklet-safe function to compute layout on UI thread
+
+export function computeLayout(
+
+  node: BSPNode,
+
+  x: number,
+
+  y: number,
+
+  width: number,
+
+  height: number,
+
+  overrideNodeId?: string,
+
+  overrideRatio?: number
+
+): { id: string; x: number; y: number; width: number; height: number }[] {
+
+  'worklet';
+
+  const leaves: { id: string; x: number; y: number; width: number; height: number }[] = [];
+
+
+
+  const splitRatio = node.id === overrideNodeId && overrideRatio !== undefined 
+
+    ? overrideRatio 
+
+    : (node.splitRatio ?? 0.5);
+
+
+
+  if (!node.left && !node.right) {
+
+    leaves.push({ id: node.id, x, y, width, height });
+
+    return leaves;
+
+  }
+
+
+
+  if (node.left && node.right && node.splitType) {
+
+    if (node.splitType === 'vertical') {
+
+      const leftWidth = width * splitRatio;
+
+      const leftLeaves = computeLayout(node.left, x, y, leftWidth, height, overrideNodeId, overrideRatio);
+
+      const rightLeaves = computeLayout(node.right, x + leftWidth, y, width - leftWidth, height, overrideNodeId, overrideRatio);
+
+      return [...leftLeaves, ...rightLeaves];
+
+    } else {
+
+      const leftHeight = height * splitRatio;
+
+      const leftLeaves = computeLayout(node.left, x, y, width, leftHeight, overrideNodeId, overrideRatio);
+
+      const rightLeaves = computeLayout(node.right, x, y + leftHeight, width, height - leftHeight, overrideNodeId, overrideRatio);
+
+      return [...leftLeaves, ...rightLeaves];
+
+    }
+
+  }
+
+
+
+  return leaves;
+
 }
